@@ -7,7 +7,6 @@ const updateCalculatedScreen = (number) => {
     calculatedScreen.value = number;
 };
 const updateCalculationScreen = (curentNumber, calculationOperator, prevNumber) => {
-    
     calculationScreen.value = `${prevNumber} ${calculationOperator} ${curentNumber} =`
 }
 const resetCalculationScreen = () => calculationScreen.value = '';
