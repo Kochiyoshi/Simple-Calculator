@@ -5,9 +5,9 @@
     width: 400px;
     height: 1500px;
 }
-.calculator-screen {
+.calculated-screen, .calculation-screen {
     width: 100%;
-    height: 100px;
+    height: 80px;
     background-color: #252525;
     color: #fff;
     text-align: right;
@@ -15,6 +15,10 @@
     border: none;
     padding: 0 20px;
     box-sizing: border-box;
+}
+.calculation-screen{
+    height: 40px;
+    font-size: 28px;
 }
 .calculator-keys{
     width: 100%;

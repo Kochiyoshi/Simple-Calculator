@@ -1,29 +1,36 @@
-const calculatorScreen = document.querySelector('.calculator-screen');
+const calculatedScreen = document.querySelector('.calculated-screen');
+const calculationScreen = document.querySelector('.calculation-screen');
 let prevNumber = '';
 let calculationOperator = '';
 let curentNumber = '';
-const updateScreen = (number) => {
-    calculatorScreen.value = number;
+const updateCalculatedScreen = (number) => {
+    calculatedScreen.value = number;
 };
+const updateCalculationScreen = (curentNumber, calculationOperator, prevNumber) => {
+    
+    calculationScreen.value = `${prevNumber} ${calculationOperator} ${curentNumber} =`
+}
+const resetCalculationScreen = () => calculationScreen.value = '';
 const inputNumber = (number) => {
     if (number === '0' && !curentNumber){
         curentNumber = '';
-        updateScreen('0')
+        updateCalculatedScreen('0');
     }else if ((typeof curentNumber) === 'number'){
         curentNumber = number;
-        updateScreen(curentNumber);
+        updateCalculatedScreen(curentNumber);
     }else {
         curentNumber += number;
-        updateScreen(curentNumber);
+        updateCalculatedScreen(curentNumber);
     }
+    resetCalculationScreen();
 };
 
 const backSpace = document.querySelector('.backspace');
 backSpace.addEventListener("click", () => {
     curentNumber = curentNumber.slice(0, -1);
-    updateScreen(curentNumber);
+    updateCalculatedScreen(curentNumber);
     if(!curentNumber){
-        updateScreen('0');
+        updateCalculatedScreen('0');
     }
 });
 
@@ -49,7 +56,7 @@ const inputOperator = operator => {
     }
     if (!(!curentNumber) && !(!prevNumber) && !(!calculationOperator)){
         calculate();
-        updateScreen(curentNumber);
+        updateCalculatedScreen(curentNumber);
         prevNumber = curentNumber;
         calculationOperator = operator;
     }
@@ -63,7 +70,7 @@ operators.forEach(operator => {
 const equalSign = document.querySelector('.equal-sign')
 equalSign.addEventListener('click', () => {
     calculate();
-    updateScreen(curentNumber);
+    updateCalculatedScreen(curentNumber);
 })
 
 const calculate = () => {
@@ -87,6 +94,7 @@ const calculate = () => {
         default:
             return;
     }
+    updateCalculationScreen(curentNumber,calculationOperator,prevNumber);
     curentNumber = result;
     calculationOperator = '';
 }
@@ -96,7 +104,8 @@ allClear.addEventListener('click', () =>{
     prevNumber= '',
     calculationOperator= '';
     curentNumber= '';
-    updateScreen('0');
+    updateCalculatedScreen('0');
+    resetCalculationScreen();
 })
 
 const decimal = document.querySelector('.decimal');
@@ -109,10 +118,10 @@ const inputDecimal = (dot) => {
     }
     if ((!curentNumber) || ((typeof curentNumber) === 'number')){
         curentNumber = `0${dot}`;
-        updateScreen(curentNumber);
+        updateCalculatedScreen(curentNumber);
     }else {
         curentNumber += dot;
-        updateScreen(curentNumber);
+        updateCalculatedScreen(curentNumber);
     }
 }
 
@@ -120,7 +129,7 @@ const percentage = document.querySelector('.percentage');
 percentage.addEventListener('click', () => {
     if(!(!curentNumber)){
         curentNumber = parseFloat(curentNumber) / 100;
-        updateScreen(curentNumber);
+        updateCalculatedScreen(curentNumber);
     };
 });
 
@@ -130,7 +139,7 @@ fraction.addEventListener('click', () => {
         console.log(curentNumber);
         curentNumber = 1 / parseFloat(curentNumber);
         console.log(curentNumber);
-        updateScreen(curentNumber.toString());
+        updateCalculatedScreen(curentNumber.toString());
     };
 });
 
@@ -138,7 +147,7 @@ const xSquared = document.querySelector('.x-squared');
 xSquared.addEventListener('click', () => {
     if(!(!curentNumber)){
         curentNumber = parseFloat(curentNumber) ** 2;
-        updateScreen(curentNumber);
+        updateCalculatedScreen(curentNumber);
     };
 });
 
@@ -146,6 +155,6 @@ const squareRoot = document.querySelector('.squared-root') ;
 squareRoot.addEventListener('click', () =>{
     if(!(!curentNumber)){
         curentNumber = Math.sqrt(parseFloat(curentNumber));
-        updateScreen(curentNumber);
+        updateCalculatedScreen(curentNumber);
     };
 });
