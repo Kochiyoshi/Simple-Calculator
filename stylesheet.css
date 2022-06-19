@@ -41,9 +41,6 @@ button{
 .operator, .equal-sign{
     background-color: orange;
 }
-/* .percentage, .fraction, .x-squared, .squared-root{
-    background-color: rgba(168, 168, 168, 0.656);
-} */
 button:hover{
     background-color: darkgrey;
 }
